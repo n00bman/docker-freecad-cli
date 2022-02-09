@@ -14,7 +14,7 @@ docker run -it avyaborov/freecad-cli:latest bash
 
 ## How to run FreeCADCmd?
 
-Before run FreeCADCmd you need set env variable HOME. For example if you use FreeCADCmd in PHP you should do it like this
+Before run FreeCADCmd you need to set env variable HOME. For example if you use FreeCADCmd in PHP you should do it like this
 
-exec(HOME=/home/user /usr/local/bin/FreeCADCmd)
+<code>exec(HOME=/home/user /usr/local/bin/FreeCADCmd)</code>
 
