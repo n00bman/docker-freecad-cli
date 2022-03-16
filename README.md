@@ -1,5 +1,5 @@
 # docker-freecad-cli
-Docker image for Freecad build without GUI based on Ubuntu 21.04
+Docker image for Freecad build without GUI based on Ubuntu 21.10
 
 https://wiki.freecadweb.org/About_FreeCAD
 
