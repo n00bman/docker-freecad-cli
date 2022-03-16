@@ -1,4 +1,4 @@
-FROM ubuntu:21.04
+FROM ubuntu:21.10
 MAINTAINER Andrew Yaborov <avyaborov@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -10,74 +10,77 @@ RUN apt update \
 # Main
 RUN \
     pack_build="git \
-                wget \
-                build-essential \
-                cmake \
-                libtool \
-                libboost-dev \
-                libboost-date-time-dev \
-                libboost-filesystem-dev \
-                libboost-graph-dev \
-                libboost-iostreams-dev \
-                libboost-program-options-dev \
-                libboost-python-dev \
-                libboost-regex-dev \
-                libboost-serialization-dev \
-                libboost-thread-dev \
-                libocct-data-exchange-dev \
-                libocct-draw-dev \
-                libocct-foundation-dev \
-                libocct-modeling-algorithms-dev \
-                libocct-modeling-data-dev \
-                libocct-ocaf-dev \
-                libocct-visualization-dev \
-                occt-draw \
-                libeigen3-dev \
-                libgts-bin \
-                libgts-dev \
-                libkdtree++-dev \
-                libmedc-dev \
-                libopencv-dev \
-                libproj-dev \
-                libvtk7-dev \
-                libxerces-c-dev \
-                libzipios++-dev \
-                libode-dev \
-                libfreetype6 \
-                libfreetype6-dev \
-                netgen-headers \
-                netgen \
-                libmetis-dev \
-                gmsh " \
+    wget \
+    build-essential \
+    cmake \
+    libtool \
+    libboost-dev \
+    libboost-date-time-dev \
+    libboost-filesystem-dev \
+    libboost-graph-dev \
+    libboost-iostreams-dev \
+    libboost-program-options-dev \
+    libboost-python-dev \
+    libboost-regex-dev \
+    libboost-serialization-dev \
+    libboost-thread-dev \
+    libocct-data-exchange-dev \
+    libocct-draw-dev \
+    libocct-foundation-dev \
+    libocct-modeling-algorithms-dev \
+    libocct-modeling-data-dev \
+    libocct-ocaf-dev \
+    libocct-visualization-dev \
+    occt-draw \
+    libeigen3-dev \
+    libgts-bin \
+    libgts-dev \
+    libkdtree++-dev \
+    libmedc-dev \
+    libopencv-dev \
+    libproj-dev \
+    libvtk7-dev \
+    libxerces-c-dev \
+    libzipios++-dev \
+    libode-dev \
+    libfreetype6 \
+    libfreetype6-dev \
+    netgen-headers \
+    netgen \
+    libmetis-dev \
+    gmsh " \
     && apt install -y --no-install-recommends $pack_build
 
 # Phyton 3 & QT5
 RUN \
     pack_build="qtbase5-dev \
-    		qtchooser \
-    		qt5-qmake \
-    		qtbase5-dev-tools \
-		libqt5opengl5-dev \
-		libqt5svg5-dev \
-		libqt5webkit5-dev \
-		libqt5xmlpatterns5-dev \
-		libqt5x11extras5-dev \
-		libpyside2-dev \
-		libshiboken2-dev \
-		pyside2-tools \
-		pyqt5-dev-tools \
-		python3 \
-                python3-dev \
-                python3-distutils \
-		python3-matplotlib \
-		python3-ply \
-		python3-pyside2.qtcore \
-		python3-pyside2.qtsvg \
-		python3-pyside2.qtwidgets \
-		python3-pyside2.qtnetwork \
-		python3-testresources \
-		" \
+    qtchooser \
+    qt5-qmake \
+    qtbase5-dev-tools \
+    libqt5opengl5-dev \
+    libqt5svg5-dev \
+    libqt5webkit5-dev \
+    libqt5xmlpatterns5-dev \
+    libqt5x11extras5-dev \
+    libpyside2-dev \
+    libshiboken2-dev \
+    pyside2-tools \
+    pyqt5-dev-tools \
+    python3 \
+    python3-dev \
+    python3-distutils \
+    python3-matplotlib \
+    python3-ply \
+    python3-pyside2.qtcore \
+    python3-pyside2.qtsvg \
+    python3-pyside2.qtwidgets \
+    python3-pyside2.qtnetwork \
+    python3-testresources \
+    " \
     && apt install -y --no-install-recommends $pack_build
+
+# create symlink to prevent  "No rule to make target '/usr/lib/x86_64-linux-gnu/libdl.so', needed by 'lib/libSMDS.so'. Stop."
+RUN ln -s /usr/lib/x86_64-linux-gnu/libdl.so.2 /usr/lib/x86_64-linux-gnu/libdl.so 
 
 RUN git clone https://github.com/FreeCAD/FreeCAD.git freecad-source && mkdir freecad-build
 
@@ -109,7 +112,7 @@ ENV PYTHONSTARTUP ${FREECAD_STARTUP_FILE}
 # Clean
 RUN apt-get clean \
     && rm /var/lib/apt/lists/* \
-          /usr/share/doc/* \
-          /usr/share/locale/* \
-          /usr/share/man/* \
-          /usr/share/info/* -fR
+    /usr/share/doc/* \
+    /usr/share/locale/* \
+    /usr/share/man/* \
+    /usr/share/info/* -fR
